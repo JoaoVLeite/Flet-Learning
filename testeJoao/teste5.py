@@ -18,7 +18,7 @@ from flet import (
 
 
 def main(page: Page):
-    prog_bars: Dict[str, ProgressRing] = {}
+    prog_bars = {}
     files = Ref[Column]()
     upload_button = Ref[ElevatedButton]()
 
@@ -30,7 +30,7 @@ def main(page: Page):
             for f in e.files:
                 prog = ProgressRing(value=0, bgcolor="#eeeeee", width=20, height=20)
                 prog_bars[f.name] = prog
-                files.current.controls.append(Row([prog, Text(f)]))
+                files.current.controls.append(Row([prog, Text(f.name)]))
         page.update()
 
     def on_upload_progress(e: FilePickerUploadEvent):
@@ -61,6 +61,7 @@ def main(page: Page):
             on_click=lambda _: file_picker.pick_files(allow_multiple=True),
         ),
         Column(ref=files),
+
         ElevatedButton(
             "Upload",
             ref=upload_button,
